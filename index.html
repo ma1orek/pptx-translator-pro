@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPTX Translator Pro - AI PowerPoint Translation</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Transform PowerPoint presentations into multiple languages while preserving perfect formatting. AI-powered translation with Google APIs integration." />
+  <meta name="keywords" content="powerpoint, translation, pptx, google translate, multilingual, presentation, formatting, AI" />
+  <meta name="author" content="PPTX Translator Pro" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="PPTX Translator Pro - AI PowerPoint Translation" />
+  <meta property="og:description" content="Transform PowerPoint presentations into multiple languages while preserving perfect formatting" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pptx-translator-pro.vercel.app" />
+  <meta property="og:image" content="https://pptx-translator-pro.vercel.app/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="PPTX Translator Pro" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PPTX Translator Pro - AI PowerPoint Translation" />
+  <meta name="twitter:description" content="Transform PowerPoint presentations into multiple languages while preserving perfect formatting" />
+  <meta name="twitter:image" content="https://pptx-translator-pro.vercel.app/twitter-image.png" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: dark)" />
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://www.googleapis.com" />
+  <link rel="preconnect" href="https://accounts.google.com" />
+  
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: 
+    https://www.googleapis.com https://accounts.google.com https://oauth2.googleapis.com 
+    https://fonts.googleapis.com https://fonts.gstatic.com;
+    connect-src 'self' https://www.googleapis.com https://accounts.google.com https://oauth2.googleapis.com;
+    img-src 'self' data: blob: https:;
+  " />
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="/styles/globals.css" as="style" />
+  <link rel="stylesheet" href="/styles/globals.css" />
+  
+  <!-- Loading Styles -->
+  <style>
+    /* Loading screen styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      color: white;
+    }
+    
+    .loading-screen.fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    
+    .loading-text {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #ffffff, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .loading-subtext {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 30px;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Hide scrollbar during loading */
+    body.loading {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Analytics (placeholder for future use) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script> -->
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+</head>
+<body class="loading">
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="loading-text">PPTX Translator Pro</div>
+    <div class="loading-subtext">Loading your presentation translator...</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Main App Container -->
+  <div id="root"></div>
+  
+  <!-- App Loading Script -->
+  <script>
+    // Remove loading screen when app loads
+    window.addEventListener('DOMContentLoaded', function() {
+      // Minimum loading time for better UX
+      setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        const body = document.body;
+        
+        if (loadingScreen) {
+          loadingScreen.classList.add('fade-out');
+          setTimeout(function() {
+            loadingScreen.style.display = 'none';
+            body.classList.remove('loading');
+          }, 500);
+        }
+      }, 1000);
+    });
+    
+    // Error handling
+    window.addEventListener('error', function(e) {
+      console.error('Application error:', e);
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        const subtext = loadingScreen.querySelector('.loading-subtext');
+        if (subtext) {
+          subtext.textContent = 'Loading encountered an issue, retrying...';
+        }
+      }
+    });
+  </script>
+  
+  <!-- React App Script -->
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
