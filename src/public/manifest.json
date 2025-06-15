@@ -1,0 +1,82 @@
+{
+  "name": "PPTX Translator Pro",
+  "short_name": "PPTX Translator",
+  "description": "AI-powered PowerPoint translation tool with Google APIs integration",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["productivity", "business", "education"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "PPTX Translator Pro main interface"
+    },
+    {
+      "src": "/screenshot-narrow.png", 
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "PPTX Translator Pro mobile view"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Upload PPTX",
+      "short_name": "Upload",
+      "description": "Upload a PowerPoint file for translation",
+      "url": "/?action=upload",
+      "icons": [
+        {
+          "src": "/upload-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Recent Translations",
+      "short_name": "Recent",
+      "description": "View recent translation results",
+      "url": "/?action=recent",
+      "icons": [
+        {
+          "src": "/recent-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}
